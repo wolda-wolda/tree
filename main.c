@@ -38,9 +38,9 @@ void inorder(Baum *root) {
     if (root == NULL) {
         return;
     }
-    preorder(root->left);
+    inorder(root->left);
     printf("%d\n", root->id);
-    preorder(root->right);
+    inorder(root->right);
 }
 
 void preorder(Baum *root) {
