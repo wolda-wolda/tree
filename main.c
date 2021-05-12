@@ -22,14 +22,14 @@ int main() {
     int x = 5;
     Baum *root = NULL;
     root = createRoot(root);
-    while (x != 0) {
+    while (x != -1) {
         printf("Gib deine Zahl ein:\n");
         scanf("%d", &x);
-        if (x != 0) {
+        if (x != -1) {
             insert(x, root);
         }
     }
-
+    printf("Dies ist ein Baum: https://bit.ly/2Rcj4Qg\n");
     preorder(root);
     printf("\n");
     inorder(root);
