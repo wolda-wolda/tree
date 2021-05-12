@@ -16,6 +16,8 @@ void preorder(Baum *root);
 
 void inorder(Baum *root);
 
+void postorder(Baum *root);
+
 int main() {
     int x = 5;
     Baum *root = NULL;
@@ -31,7 +33,18 @@ int main() {
     preorder(root);
     printf("\n");
     inorder(root);
+    printf("\n");
+    postorder(root);
     return 0;
+}
+
+void postorder(Baum *root) {
+    if (root == NULL) {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d\n", root->id);
 }
 
 void inorder(Baum *root) {
