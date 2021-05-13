@@ -20,7 +20,7 @@ void postorder(Baum *root);
 
 void dasBaum();
 
-Baum *loeschen(Baum *root);
+void loeschen(Baum *root);
 
 Baum *loeschen2(Baum *root, int x);
 
@@ -36,30 +36,37 @@ int main() {
             insert(x, root);
         }
     }
-    dasBaum();
+
+    //dasBaum();
+
     preorder(root);
     printf("\n");
     postorder(root);
     printf("\n");
     inorder(root);
-    root = loeschen(root);
-    preorder(root);
-    printf("\n");
-    postorder(root);
-    inorder(root);
-    printf("\n");
+    loeschen(root);
     return 0;
 }
 
-Baum *loeschen(Baum *root) {
-    int x = 0, ret;
-    printf("Welche Zahl möchten sie löschen?:\n");
-    ret = scanf("%d", &x);
-    fflush(stdin);
-    if (ret == 1) {
-        root = loeschen2(root, x);
+void loeschen(Baum *root) {
+    int x = 0, ret = 1;
+    while (ret == 1 && root != NULL) {
+        printf("Welche Zahl moechten sie loeschen?:\n");
+        ret = scanf("%d", &x);
+        fflush(stdin);
+        if (ret == 1) {
+            root = loeschen2(root, x);
+        }
+        preorder(root);
+        printf("\n");
+        postorder(root);
+        printf("\n");
+        inorder(root);
+        printf("\n");
+        if (root == NULL) {
+            printf("Baum ist leer");
+        }
     }
-    return root;
 }
 
 Baum *loeschen2(Baum *root, int x) {
