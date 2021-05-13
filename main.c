@@ -20,24 +20,75 @@ void postorder(Baum *root);
 
 void dasBaum();
 
+Baum *loeschen(Baum *root);
+
+Baum *loeschen2(Baum *root, int x);
+
 int main() {
-    int x = 5;
+    int x = 5, ret = 1;
     Baum *root = NULL;
     root = createRoot(root);
-    while (x != -1) {
+    while (ret == 1) {
         printf("Gib deine Zahl ein:\n");
-        scanf("%d", &x);
-        if (x != -1) {
+        ret = scanf("%d", &x);
+        fflush(stdin);
+        if (ret == 1) {
             insert(x, root);
         }
     }
     dasBaum();
     preorder(root);
     printf("\n");
+    postorder(root);
+    printf("\n");
     inorder(root);
+    root = loeschen(root);
+    preorder(root);
     printf("\n");
     postorder(root);
+    inorder(root);
+    printf("\n");
     return 0;
+}
+
+Baum *loeschen(Baum *root) {
+    int x = 0, ret;
+    printf("Welche Zahl möchten sie löschen?:\n");
+    ret = scanf("%d", &x);
+    fflush(stdin);
+    if (ret == 1) {
+        root = loeschen2(root, x);
+    }
+    return root;
+}
+
+Baum *loeschen2(Baum *root, int x) {
+    if (root == NULL) {
+        return root;
+    }
+    if (root->id > x) {
+        root->left = loeschen2(root->left, x);
+    } else if (root->id < x) {
+        root->right = loeschen2(root->right, x);
+    } else if (root->id == x) {
+        Baum *temp = NULL;
+        Baum *temp2 = NULL;
+        if (root->left == NULL) {
+            temp = root->right;
+            free(root);
+            return temp;
+        } else if (root->right == NULL) {
+            temp = root->left;
+            free(root);
+            return temp;
+        } else {
+            temp = root->right;
+            temp2 = root->left;
+            free(root);
+            root = temp;
+            root->left = temp2;
+        }
+    }
 }
 
 void postorder(Baum *root) {
